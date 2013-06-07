@@ -23,64 +23,20 @@ void Cell::add_adjacent_cell(Cell* adj) {
 }
 
 void Cell::flagged(void) {
+	if(flagsRemaining <= 0) {return;}   // don't flag the cell if they have no flags left
 	switch(status) {
 		case UNCLICKED: status = FLAGGED; break;
 		case CLICKED: break;
 		case FLAGGED: status = UNCLICKED; break;
 		default: cout << "Error in Cell::flagged()" << endl;
 	}
+	flagsRemaining--;
 }
 
-NumberCell::NumberCell() {
-	contents = 9;
+int Cell::getNumRemaining(void) {
+	return flagsRemaining;
 }
 
-NumberCell::NumberCell(int value) {
-	contents = value;
-}
-
-void NumberCell::setContents(int value) {
-	contents = value;
-}
-
-int NumberCell::getContents(void) {
-	return contents;
-}
-
-bool Mine::clicked(void) {
-	status = CLICKED;
-	return false;
-}
-
-bool NumberCell::clicked(void) {
-	status = CLICKED;
-	if (contents == 0) {    // if cell is blank
-		for (int i=0; i<8; i++) {
-			if (adjacency_list[i] != NULL) {    // if there is an entry in this position
-				adjacency_list[i]->clicked();   // 'click' all adjacent cells if cell was blank
-			}
-		}
-	}
-	return true;
-}
-
-void Mine::print(void) {
-	switch(status) {
-		case CLICKED: cout << "X"; break;
-		case UNCLICKED: cout << "-"; break;
-		case FLAGGED: cout << "!"; break;
-		default: cout << "Error in Mine::print()" << endl; break;
-	}
-}
-
-void NumberCell::print(void) {
-	switch(status) {
-		case CLICKED:
-			if (contents == 0) cout << " ";
-			else cout << contents;
-			break;
-		case UNCLICKED: cout << "-"; break;
-		case FLAGGED: cout << "!"; break;
-		default: cout << "Error in NumberCell::print()" << endl; break;
-	}
+void Cell::setNumRemaining(int num) {
+	flagsRemaining = num;
 }

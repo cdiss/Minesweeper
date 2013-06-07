@@ -6,16 +6,21 @@
 
 using namespace std;
 
-int main(){
+int main() {
 	int control = 0;
 	bool lose = true;
 	bool win = true;
 	clock_t start;
 	double duration;
+<<<<<<< HEAD
 	int width, height, numMines;
 	char input;
 
 	while (1){
+=======
+	
+	while (1) {
+>>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
 		// pretty ASCII art that will print every time you loop back to the main menu
 		cout << "          \\|/ " << endl;
 		cout << "         .-*-   " << endl;
@@ -34,6 +39,7 @@ int main(){
 		cin >> control;
 
 		// PLAY GAME
+<<<<<<< HEAD
 		if (control == 1){
 			cout << "What size grid do you want to play on?" << endl;
 			cout << "Width: ";
@@ -45,6 +51,9 @@ int main(){
 
 			// create grid with width, height, and number of mines
 			
+=======
+		if (control == 1) {
+>>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
 			// starting the clock
 			start = clock();
 	
@@ -69,7 +78,11 @@ int main(){
 				cout << "   | | | |__| | |__| | | |___| |__| |____) |  | |   " << endl;
 				cout << "   |_|  \\____/ \\____/  |______\\____/|_____/   |_|   " << endl;
 			}
+<<<<<<< HEAD
 			if (win){
+=======
+			if (win == true) {
+>>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
 				cout << " __     ______  _    _  __          _______ _   _ " << endl;
 				cout << " \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |" << endl;
 				cout << "  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |" << endl;
@@ -84,14 +97,14 @@ int main(){
 		}
 
 		// PRINT CREDITS
-		else if (control == 2){
+		else if (control == 2) {
 			cout << "\n======= CREDITS ======= " << endl;
 			cout << "TEAM AWESOME: Lanya Butler, Craig Disselkoen, and Connie Lu " << endl;
 			cout << "SPIRE - EIT 2013 \n" << endl;
 		}
 
 		// QUIT GAME
-		else if (control == 3){
+		else if (control == 3) {
 			cout << "\n Quitting... Thanks for playing! " << endl;
 			break;
 		}
