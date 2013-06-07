@@ -12,7 +12,9 @@ int main(){
 	bool win = true;
 	clock_t start;
 	double duration;
-	
+	int width, height, numMines;
+	char input;
+
 	while (1){
 		// pretty ASCII art that will print every time you loop back to the main menu
 		cout << "          \\|/ " << endl;
@@ -33,9 +35,23 @@ int main(){
 
 		// PLAY GAME
 		if (control == 1){
+			cout << "What size grid do you want to play on?" << endl;
+			cout << "Width: ";
+			cin >> width;
+			cout << "\n Height: ";
+			cin >> height;
+			cout << "How many mines do you want to play with? ";
+			cin >> mineNum;
+
+			// create grid with width, height, and number of mines
+			
 			// starting the clock
 			start = clock();
+	
+			// start game
+		
 			// GAME CODE GOES HERE
+			
 
 			if (lose) {
 				/*
@@ -60,6 +76,7 @@ int main(){
 				cout << "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |" << endl;
 				cout << "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |" << endl;
 				cout << "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|" << endl;
+
 			}
 
 			duration = (clock() - start ) / (double)CLOCKS_PER_SEC;
