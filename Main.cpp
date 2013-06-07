@@ -6,14 +6,14 @@
 
 using namespace std;
 
-int main(){
+int main() {
 	int control = 0;
 	bool lose = false;
 	bool win = false;
 	clock_t start;
 	double duration;
 	
-	while (1){
+	while (1) {
 		// pretty ASCII art that will print every time you loop back to the main menu
 		cout << "          \|/ " << endl;
 		cout << "         .-*-   " << endl;
@@ -32,7 +32,7 @@ int main(){
 		cin >> control;
 
 		// PLAY GAME
-		if (control == 1){
+		if (control == 1) {
 			// starting the clock
 			start = clock();
 			// GAME CODE GOES HERE
@@ -53,7 +53,7 @@ int main(){
 				cout << "   | | | |__| | |__| | | |___| |__| |____) |  | |   " << endl;
 				cout << "   |_|  \____/ \____/  |______\____/|_____/   |_|   " << endl;
 			}
-			if (win == true){
+			if (win == true) {
 				cout << " __     ______  _    _  __          _______ _   _ " << endl;
 				cout << " \ \   / / __ \| |  | | \ \        / /_   _| \ | |" << endl;
 				cout << "  \ \_/ / |  | | |  | |  \ \  /\  / /  | | |  \| |" << endl;
@@ -67,14 +67,14 @@ int main(){
 		}
 
 		// PRINT CREDITS
-		else if (control == 2){
+		else if (control == 2) {
 			cout << "\n======= CREDITS ======= " << endl;
 			cout << "TEAM AWESOME: Lanya Butler, Craig Disselkoen, and Connie Lu " << endl;
 			cout << "SPIRE - EIT 2013 \n" << endl;
 		}
 
 		// QUIT GAME
-		else if (control == 3){
+		else if (control == 3) {
 			cout << "\n Quitting... Thanks for playing! " << endl;
 			break;
 		}
