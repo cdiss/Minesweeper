@@ -1,3 +1,5 @@
+#include "Cell.hpp"
+
 #include <stdlib.h>
 #include <iostream>
 #include <ctime>

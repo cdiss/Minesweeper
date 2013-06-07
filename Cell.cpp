@@ -1,24 +1,7 @@
+#include "Cell.hpp"
+
 #include <iostream>
 using namespace std;
-
-enum clicked_status {
-	UNCLICKED,
-	CLICKED,
-	FLAGGED
-};
-
-// abstract base class
-class Cell {
-public:
-	clicked_status status;
-	Cell* adjacency_list[8];
-	
-	Cell();
-	void add_adjacent_cell(Cell* adj);    // argument is a Cell pointer to be added to the list of pointers to adjacent Cells.
-	void flagged(void) { if(status == UNCLICKED) status = FLAGGED;};
-	virtual bool clicked(void) = 0;
-	virtual void print(void) = 0;
-};
 
 Cell::Cell() {    // constructor for the Cell class
 	status = UNCLICKED; 
@@ -39,25 +22,30 @@ void Cell::add_adjacent_cell(Cell* adj) {
 	}
 }
 
-class Mine : public Cell {
-public:
-	Mine() : Cell() { };    // use the Cell() constructor unmodified
-	bool clicked(void);
-	void print(void);
-};
+void Cell::flagged(void) {
+	switch(status) {
+		case UNCLICKED: status = FLAGGED; break;
+		case CLICKED: break;
+		case FLAGGED: status = UNCLICKED; break;
+		default: cout << "Error in Cell::flagged()" << endl;
+	}
+}
 
-class NumberCell : public Cell {
-private:	
-	int contents;
-public:	
-	NumberCell() : Cell() { contents = 9 };    // when constructed with no parameters, use the Cell() constructor and initialize to 9 (garbage value indicating uninitialized)
-	NumberCell(int value) : Cell() {contents = value;};    // use the Cell() constructor and then initialize contents
-	void setContents(int value) {contents = value;};
-	int getContents(void) {return contents;};
+NumberCell::NumberCell() {
+	contents = 9;
+}
 
-	bool clicked(void);
-	void print(void);
-};
+NumberCell::NumberCell(int value) {
+	contents = value;
+}
+
+void NumberCell::setContents(int value) {
+	contents = value;
+}
+
+int NumberCell::getContents(void) {
+	return contents;
+}
 
 bool Mine::clicked(void) {
 	status = CLICKED;
@@ -81,7 +69,7 @@ void Mine::print(void) {
 		case CLICKED: cout << "X"; break;
 		case UNCLICKED: cout << "-"; break;
 		case FLAGGED: cout << "!"; break;
-		default: cout << "Error in Mine::print(void)" << endl; break;
+		default: cout << "Error in Mine::print()" << endl; break;
 	}
 }
 
@@ -92,7 +80,7 @@ void NumberCell::print(void) {
 			else cout << contents;
 			break;
 		case UNCLICKED: cout << "-"; break;
-		case FLAGGED: cout << "!" << endl; break;
-		default: cout << "Error in NumberCell::print(void)" << endl; break;
+		case FLAGGED: cout << "!"; break;
+		default: cout << "Error in NumberCell::print()" << endl; break;
 	}
 }
