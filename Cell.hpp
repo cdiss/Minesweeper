@@ -22,8 +22,12 @@ public:
 	virtual bool clicked(void) = 0;  // call this when this cell is clicked. Returns false if the cell was a mine, true if the cell was 'safe'.
 	virtual void print(void) = 0;  // call this to print the cell (as part of the 'SoleSweeper grid)
 
+	static int getNumRemaining(void);  // this tells you how many flags have not been used
+	static void setNumRemaining(int num);   // use this once during set-up to communicate the total number of flags available (mines in the grid).
+
 protected:
 	Cell* adjacency_list[8];
+	static int flagsRemaining;
 };
 
 #endif //CELL_HPP_

@@ -1,4 +1,3 @@
-#include "Cell.hpp"
 #include "Mine.hpp"
 
 #include <iostream>

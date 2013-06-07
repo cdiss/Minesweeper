@@ -3,6 +3,8 @@
 #ifndef NUMBERCELL_HPP_
 #define NUMBERCELL_HPP_
 
+#include "Cell.hpp"
+
 class NumberCell: public Cell {
 public:
 	NumberCell();  // sets contents to default value 9, indicating uninitialized. Later must call setContents(). 9 cannot ever be the actual value of a cell in Minesweeper.
