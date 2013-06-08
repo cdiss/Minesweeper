@@ -12,15 +12,10 @@ int main() {
 	bool win = true;
 	clock_t start;
 	double duration;
-<<<<<<< HEAD
 	int width, height, numMines;
 	char input;
 
 	while (1){
-=======
-	
-	while (1) {
->>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
 		// pretty ASCII art that will print every time you loop back to the main menu
 		cout << "          \\|/ " << endl;
 		cout << "         .-*-   " << endl;
