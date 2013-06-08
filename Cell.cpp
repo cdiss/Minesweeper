@@ -23,10 +23,20 @@ void Cell::add_adjacent_cell(Cell* adj) {
 }
 
 void Cell::flagged(void) {
+	if(flagsRemaining <= 0) {return;}   // don't flag the cell if they have no flags left
 	switch(status) {
 		case UNCLICKED: status = FLAGGED; break;
 		case CLICKED: break;
 		case FLAGGED: status = UNCLICKED; break;
 		default: cout << "Error in Cell::flagged()" << endl;
 	}
+	flagsRemaining--;
+}
+
+int Cell::getNumRemaining(void) {
+	return flagsRemaining;
+}
+
+void Cell::setNumRemaining(int num) {
+	flagsRemaining = num;
 }

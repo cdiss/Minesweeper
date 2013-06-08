@@ -1,4 +1,3 @@
-#include "Cell.hpp"
 #include "NumberCell.hpp"
 
 #include <iostream>

@@ -3,6 +3,8 @@
 #ifndef MINE_HPP_
 #define MINE_HPP_
 
+#include "Cell.hpp"
+
 class Mine: public Cell {
 public:
 	bool clicked(void);  // see comments on Cell
