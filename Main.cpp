@@ -1,3 +1,4 @@
+#include "Grid.hpp"
 #include "Cell.hpp"
 
 #include <stdlib.h>
@@ -44,6 +45,7 @@ int main() {
 			cin >> numMines;
 
 			// create grid with width, height, and number of mines
+      Grid *newGrid = new Grid(width, height, numMines);
 
 			// starting the clock
 			start = clock();
