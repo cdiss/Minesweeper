@@ -34,7 +34,6 @@ int main() {
 		cin >> control;
 
 		// PLAY GAME
-<<<<<<< HEAD
 		if (control == 1){
 			cout << "What size grid do you want to play on?" << endl;
 			cout << "Width: ";
@@ -45,10 +44,7 @@ int main() {
 			cin >> mineNum;
 
 			// create grid with width, height, and number of mines
-			
-=======
-		if (control == 1) {
->>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
+
 			// starting the clock
 			start = clock();
 	
@@ -73,11 +69,7 @@ int main() {
 				cout << "   | | | |__| | |__| | | |___| |__| |____) |  | |   " << endl;
 				cout << "   |_|  \\____/ \\____/  |______\\____/|_____/   |_|   " << endl;
 			}
-<<<<<<< HEAD
 			if (win){
-=======
-			if (win == true) {
->>>>>>> ad3b529f8ccc5d3e64aa2cf768eac90a0fc2d88f
 				cout << " __     ______  _    _  __          _______ _   _ " << endl;
 				cout << " \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |" << endl;
 				cout << "  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |" << endl;
