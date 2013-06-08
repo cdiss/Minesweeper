@@ -41,7 +41,7 @@ int main() {
 			cout << "\n Height: ";
 			cin >> height;
 			cout << "How many mines do you want to play with? ";
-			cin >> mineNum;
+			cin >> numMines;
 
 			// create grid with width, height, and number of mines
 
