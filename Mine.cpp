@@ -3,6 +3,10 @@
 #include <iostream>
 using namespace std;
 
+Mine::Mine() {
+	flagsRemaining++;
+}
+
 bool Mine::clicked(void) {
 	status = CLICKED;
 	return false;

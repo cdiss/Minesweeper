@@ -7,6 +7,7 @@
 
 class Mine: public Cell {
 public:
+	Mine();
 	bool clicked(void);  // see comments on Cell
 	void print(void);
 };

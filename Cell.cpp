@@ -22,6 +22,8 @@ void Cell::add_adjacent_cell(Cell* adj) {
 	}
 }
 
+int Cell::flagsRemaining = 0;
+
 void Cell::flagged(void) {
 	if(flagsRemaining <= 0) {return;}   // don't flag the cell if they have no flags left
 	switch(status) {
@@ -35,8 +37,4 @@ void Cell::flagged(void) {
 
 int Cell::getNumRemaining(void) {
 	return flagsRemaining;
-}
-
-void Cell::setNumRemaining(int num) {
-	flagsRemaining = num;
 }
