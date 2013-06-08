@@ -69,7 +69,7 @@ int main() {
 		// PRINT CREDITS
 		else if (control == 2) {
 			cout << "\n======= CREDITS ======= " << endl;
-			cout << "TEAM AWESOME: Lanya Butler, Craig Disselkoen, and Connie Lu " << endl;
+			cout << "TEAM AWESOME: Lanya Butler, Craig Disselkoen, and Connie Lu" << endl;
 			cout << "SPIRE - EIT 2013 \n" << endl;
 		}
 
