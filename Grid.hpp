@@ -21,10 +21,10 @@ public:
    * @param numOfMines - number of mines to be placed in grid
    */
   Grid(int x, int y, int numOfMines);
-
-  //the cells, as a 2D array of pointers
-  vector<vector<Cell*>>* cellGrid;
   
+  bool click(int x, int y);
+  void flag(int x, int y);
+    
   /*
    * printSelf - calls the print method of each cell
    *
@@ -32,7 +32,14 @@ public:
    * @param y - grid height size, passed in from constructor
    */
   void printSelf(int x, int y);
+    
+  bool hasWon(void);
+    
+protected:
+  //the cells, as a 2D array of pointers
+  vector<vector<Cell*>>* cellGrid;
 
+  int xSize, ySize;
 };
 
 #endif //GRID_HPP_

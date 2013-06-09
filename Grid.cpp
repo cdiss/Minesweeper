@@ -6,7 +6,8 @@
 using namespace std;
 
 Grid::Grid(int x, int y, int numOfMines) {
-  
+    this->x = x;
+    this->y = y;
   int numOfCells = x*y;
 
   //create cell array with given number of cells
@@ -96,6 +97,14 @@ Grid::Grid(int x, int y, int numOfMines) {
 
 }
 
+bool Grid::click(int x, int y) {
+    return cellGrid->at(x).at(y)->clicked();
+}
+
+void Grid::flag(int x, int y) {
+    cellGrid->at(x).at(y)->flagged();
+}
+
 void Grid::printSelf(int x, int y) {
   //array of chars representing letters of the alphabet (max size 25)
   char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
@@ -118,4 +127,15 @@ void Grid::printSelf(int x, int y) {
       cellGrid->at(j).at(k)->print(); 
     }
   }
+}
+
+bool Grid::hasWon() {
+    for(int i = 0; i<x; i++) {
+        for (int j = 0; j<y; j++) {
+            if(cellgrid->at(i).at(k)->status == UNCLICKED) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

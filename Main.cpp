@@ -6,14 +6,26 @@
 
 using namespace std;
 
+int getposition(const char *array, size_t size, char c)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (array[i] == c)
+            return (int)i;
+    }
+    return -1;
+}
+
 int main() {
 	int control = 0;
-	bool lose = true;
-	bool win = true;
+	bool lose = false;
+	bool win = false;
 	clock_t start;
 	double duration;
 	int width, height, numMines;
 	char input;
+    char row;
+    int column, int_row;
 
 	while (1){
 		// pretty ASCII art that will print every time you loop back to the main menu
@@ -48,11 +60,35 @@ int main() {
 			// starting the clock
 			start = clock();
 	
-			// start game
-		
-			// GAME CODE GOES HERE
-			
-
+			// initialize the grid
+            Grid grid = new Grid (width, height, numMines);
+            while(!gameOver){
+                cout << "Click[C] or flag[F]";
+                cin >> input;
+                cout << "What row? (a-y)";
+                cin >> row;
+                cout << "What column (#)";
+                cin >> column;
+                
+                char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                    's', 't', 'u', 'v', 'w', 'x', 'y'};
+                int_row = getposition(alph, 25, row);
+                
+                if (input == 'C'){
+                    if(!grid.click(int_row, column)) {
+                        gameOver = true;
+                        lose = true;
+                    }
+                    
+                }
+                if (input == 'F') {
+                    grid.flag(int_row, column);
+                }
+                
+                if (grid.hasWon()) { gameOver = true; win = true; }
+            }
+            }
 			if (lose) {
 				/*
 				cout << " __   __   ___    _   _             _       ___     ___    _____  " << endl;
@@ -80,7 +116,7 @@ int main() {
 			}
 
 			duration = (clock() - start ) / (double)CLOCKS_PER_SEC;
-			cout <<"printf: "<< duration <<'\n';
+			cout << "Game duration: "<< duration << endl;
 		}
 
 		// PRINT CREDITS
