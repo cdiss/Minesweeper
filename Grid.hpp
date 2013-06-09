@@ -31,7 +31,7 @@ public:
    * @param x - grid width size, passed in from constructor
    * @param y - grid height size, passed in from constructor
    */
-  void printSelf(int x, int y);
+  void printSelf(void);
     
   bool hasWon(void);
     
