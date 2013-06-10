@@ -1,5 +1,6 @@
 #include "Grid.hpp"
 #include "Cell.hpp"
+#include "Grid.hpp"
 
 #include <stdlib.h>
 #include <iostream>
@@ -7,16 +8,33 @@
 
 using namespace std;
 
+int getposition(const char *array, size_t size, char c)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (array[i] == c)
+            return (int)i;
+    }
+    cout << "Could not find position in char array"; return -1;
+}
+
 int main() {
 	int control = 0;
-	bool lose = true;
-	bool win = true;
+	bool lose;
+	bool win;
+	bool gameOver;
 	clock_t start;
 	double duration;
 	int width, height, numMines;
 	char input;
+    char row;
+    int column, int_row;
 
 	while (1){
+		lose = false;
+		win = false;
+		gameOver = false;
+		
 		// pretty ASCII art that will print every time you loop back to the main menu
 		cout << "          \\|/ " << endl;
 		cout << "         .-*-   " << endl;
@@ -39,7 +57,7 @@ int main() {
 			cout << "What size grid do you want to play on?" << endl;
 			cout << "Width: ";
 			cin >> width;
-			cout << "\n Height: ";
+			cout << "Height: ";
 			cin >> height;
 			cout << "How many mines do you want to play with? ";
 			cin >> numMines;
@@ -50,20 +68,48 @@ int main() {
 			// starting the clock
 			start = clock();
 	
-			// start game
-		
-			// GAME CODE GOES HERE
+			// initialize the grid
+            Grid* grid = new Grid (width, height, numMines);
+            char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                    's', 't', 'u', 'v', 'w', 'x', 'y'};
 			
+			while(!gameOver){
+                cout << "Click[C] or flag[F]: ";
+                cin >> input;
+                cout << "What row? (a-y): ";
+                cin >> row;
+				int_row = getposition(alph, 25, row);
+				while( int_row >= height || int_row < 0 ) {
+					cout << "Out of range. Pick again: ";
+					cin >> row;
+					int_row = getposition(alph, 25, row);
+				}
+                cout << "What column (#): ";
+                cin >> column;
+				while( column >= width || column < 0 ) {
+					cout << "Out of range. Pick again: ";
+					cin >> column;
+				}
+                
+                if (input == 'C'){
+                    cout << "Calling click(" << int_row << ", " << column << ")" << endl;
+					if(!(grid->click(int_row, column))) {
+                        gameOver = true;
+                        lose = true;
+                    }
+                    
+                }
+                if (input == 'F') {
+                    cout << "Calling flag(" << int_row << ", " << column << ")" << endl;
+					grid->flag(int_row, column);
+                }
+                
+                if (grid->hasWon() && !lose) { gameOver = true; win = true; }
 
+				grid->printSelf();
+            }
 			if (lose) {
-				/*
-				cout << " __   __   ___    _   _             _       ___     ___    _____  " << endl;
-				cout << " \ \ / /  / _ \  | | | |    o O O  | |     / _ \   / __|  |_   _| " << endl;
-				cout << "  \ V /  | (_) | | |_| |   o       | |__  | (_) |  \__ \    | |   " << endl;
-				cout << "  _|_|_   \___/   \___/   TS__[O]  |____|  \___/   |___/   _|_|_ " << endl;
-				cout << "_| ''' |_|'''''|_|'''''| {======|_|''''''|_|''''|_|'''''|_|'''''| " << endl;
-				cout << " '-0-0-'''-0-0-'''-0-0-'./o--000'''-0-0-''`-0-0-'''-0-0-'''-0-0-' " << endl;
-				*/
 				cout << "__     ______  _    _   _      ____   _____ _______ " << endl;
 				cout << "\\ \\   / / __ \\| |  | | | |    / __ \\ / ____|__   __| " << endl;
 				cout << " \\ \\_/ / |  | | |  | | | |   | |  | | (___    | |   " << endl;
@@ -82,7 +128,9 @@ int main() {
 			}
 
 			duration = (clock() - start ) / (double)CLOCKS_PER_SEC;
-			cout <<"printf: "<< duration <<'\n';
+			cout << "Game duration: "<< duration << endl;
+			cout << endl << "Type a letter and press Enter to continue." << endl;
+			cin >> row;
 		}
 
 		// PRINT CREDITS
@@ -97,7 +145,7 @@ int main() {
 			cout << "\n Quitting... Thanks for playing! " << endl;
 			break;
 		}
-		else {;}
+		else { }
 	}
 	return 0;
 }

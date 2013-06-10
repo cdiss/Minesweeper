@@ -6,7 +6,8 @@
 using namespace std;
 
 Grid::Grid(int x, int y, int numOfMines) {
-  
+  this->xSize = x;
+  this->ySize = y;
   int numOfCells = x*y;
 
   //create cell array with given number of cells
@@ -32,11 +33,11 @@ Grid::Grid(int x, int y, int numOfMines) {
   for(int i = 0; i < numOfMines; i++) {
     do {
       randNum = rand()%(numOfCells);
-      randRow = randNum % x;
-      randCol = (int)randNum / x;
-    } while(grid[randRow][randCol] == -1); //while position not already taken
+      randCol = randNum % x;
+      randRow = (int)randNum / x;
+    } while(grid[randCol][randRow] == -1); //while position not already taken
   
-    grid[randRow][randCol] = -1;
+    grid[randCol][randRow] = -1;
   }
 
   //after mines are placed randomly in array, have to calculate what each cell's number is
@@ -91,31 +92,89 @@ Grid::Grid(int x, int y, int numOfMines) {
     }
   }
 
+  for(int i = 0; i < x; i++) {
+    for(int j = 0; j < y; j++) {
+      if(grid[i][j] == 0) {
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i-1).at(j-1));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i-1).at(j));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i-1).at(j+1));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i).at(j-1));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i).at(j+1));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i+1).at(j-1));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i+1).at(j));
+        } catch (out_of_range) {
+        }
+        try {
+          cellGrid->at(i).at(j)->add_adjacent_cell(cellGrid->at(i+1).at(j+1));
+        } catch (out_of_range) {
+        }
+      }
+    }
+  }
   //print grid
-  printSelf(x, y);
+  printSelf();
 
 }
 
-void Grid::printSelf(int x, int y) {
+bool Grid::click(int x, int y) {
+    return cellGrid->at(y).at(x)->clicked();
+}
+
+void Grid::flag(int x, int y) {
+    cellGrid->at(y).at(x)->flagged();
+}
+
+void Grid::printSelf() {
   //array of chars representing letters of the alphabet (max size 25)
   char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                    's', 't', 'u', 'v', 'w', 'x', 'y'};
   
   //print horizontal heading (numbers)
-  cout << "  ";
-  for(int i = 0; i < x; i++) {
+  cout << " ";
+  for(int i = 0; i < xSize; i++) {
     cout << " " << i;
   }
   cout << endl;
 
   //print vertical heading (letters, from char alph array)
-  for(int j = 0; j < y; j++) {
+  for(int j = 0; j < ySize; j++) {
     cout << alph[j];
-    for(int k = 0; k < (x*y); k++) {
+    for(int k = 0; k < xSize; k++) {
       cout << " ";
       //print method for each individual cell
-      cellGrid->at(j).at(k)->print(); 
+      cellGrid->at(k).at(j)->print(); 
     }
+	cout << endl;
   }
+}
+
+bool Grid::hasWon() {
+    for(int i = 0; i<xSize; i++) {
+        for (int j = 0; j<ySize; j++) {
+            if(cellGrid->at(i).at(j)->status == UNCLICKED) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
