@@ -15,7 +15,7 @@ int getposition(const char *array, size_t size, char c)
         if (array[i] == c)
             return (int)i;
     }
-    cout << "Could not find position in char array"; return -1;
+    return -1;
 }
 
 int main() {
@@ -27,8 +27,8 @@ int main() {
 	double duration;
 	int width, height, numMines;
 	char input;
-    char row;
-    int column, int_row;
+  char row;
+  int column, int_row;
 
 	while (1){
 		lose = false;
@@ -51,6 +51,13 @@ int main() {
 		cout << "1 - Start Game			2 - Credits			3 - Quit " << endl;
 		cout << "Selection: ";
 		cin >> control;
+    while (control > 3 || control < 1) {
+      // these two function calls serve to discard any remaining input that has not been handled yet (i.e. if the user types multiple characters at the prompt)
+      cin.clear();
+      cin.ignore(INT_MAX, '\n');
+      cout << "Not a valid choice. Pick again: ";
+      cin >> control;
+    }
 
 		// PLAY GAME
 		if (control == 1){
@@ -62,53 +69,59 @@ int main() {
 			cout << "How many mines do you want to play with? ";
 			cin >> numMines;
 
-			// create grid with width, height, and number of mines
-      Grid *newGrid = new Grid(width, height, numMines);
-
 			// starting the clock
 			start = clock();
 	
 			// initialize the grid
-            Grid* grid = new Grid (width, height, numMines);
-            char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                    's', 't', 'u', 'v', 'w', 'x', 'y'};
+      Grid* grid = new Grid (width, height, numMines);
+      char alph[25] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+               'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+               's', 't', 'u', 'v', 'w', 'x', 'y'};
 			
 			while(!gameOver){
-                cout << "Click[C] or flag[F]: ";
-                cin >> input;
-                cout << "What row? (a-y): ";
-                cin >> row;
+        cout << "Click[C] or Flag[F]: ";
+        cin >> input;
+        while( input != 'C' && input != 'c' && input != 'F' && input != 'f' ) {
+          // these two function calls serve to discard any remaining input that has not been handled yet (i.e. if the user types multiple characters at the prompt)
+          cin.clear();
+          cin.ignore(INT_MAX, '\n');
+          cout << "Not a valid choice. Pick again: ";
+          cin >> input;
+        }
+        cout << "What row? (letter): ";
+        cin >> row;
 				int_row = getposition(alph, 25, row);
 				while( int_row >= height || int_row < 0 ) {
-					cout << "Out of range. Pick again: ";
+					// these two function calls serve to discard any remaining input that has not been handled yet (i.e. if the user types multiple characters at the prompt)
+          cin.clear();
+          cin.ignore(INT_MAX, '\n');
+          cout << "Out of range. Pick again: ";
 					cin >> row;
 					int_row = getposition(alph, 25, row);
 				}
-                cout << "What column (#): ";
-                cin >> column;
+        cout << "What column (#): ";
+        cin >> column;
 				while( column >= width || column < 0 ) {
-					cout << "Out of range. Pick again: ";
+					// these two function calls serve to discard any remaining input that has not been handled yet (i.e. if the user types multiple characters at the prompt)
+          cin.clear();
+          cin.ignore(INT_MAX, '\n');
+          cout << "Out of range. Pick again: ";
 					cin >> column;
 				}
                 
-                if (input == 'C'){
-                    cout << "Calling click(" << int_row << ", " << column << ")" << endl;
+        if (input == 'C' || input == 'c'){
 					if(!(grid->click(int_row, column))) {
-                        gameOver = true;
-                        lose = true;
-                    }
-                    
-                }
-                if (input == 'F') {
-                    cout << "Calling flag(" << int_row << ", " << column << ")" << endl;
+             gameOver = true;
+             lose = true;
+          }                    
+       }
+       if (input == 'F' || input == 'f') {
 					grid->flag(int_row, column);
-                }
+       }
                 
-                if (grid->hasWon() && !lose) { gameOver = true; win = true; }
-
-				grid->printSelf();
-            }
+       if (grid->hasWon() && !lose) { gameOver = true; win = true; }
+			 grid->printSelf();
+    }
 			if (lose) {
 				cout << "__     ______  _    _   _      ____   _____ _______ " << endl;
 				cout << "\\ \\   / / __ \\| |  | | | |    / __ \\ / ____|__   __| " << endl;
@@ -116,6 +129,7 @@ int main() {
 				cout << "  \\   /| |  | | |  | | | |   | |  | |\\___ \\   | |   " << endl;
 				cout << "   | | | |__| | |__| | | |___| |__| |____) |  | |   " << endl;
 				cout << "   |_|  \\____/ \\____/  |______\\____/|_____/   |_|   " << endl;
+        cout << endl;
 			}
 			if (win){
 				cout << " __     ______  _    _  __          _______ _   _ " << endl;
@@ -124,11 +138,11 @@ int main() {
 				cout << "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |" << endl;
 				cout << "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |" << endl;
 				cout << "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|" << endl;
-
+        cout << endl;
 			}
 
 			duration = (clock() - start ) / (double)CLOCKS_PER_SEC;
-			cout << "Game duration: "<< duration << endl;
+			cout << "Game duration: "<< duration << " seconds." << endl;
 			cout << endl << "Type a letter and press Enter to continue." << endl;
 			cin >> row;
 		}
